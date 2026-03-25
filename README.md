@@ -4,14 +4,11 @@ components
 
 ## Installation
 
-
 ```sh
 npm install react-native-th-components
 ```
 
-
 ## Usage
-
 
 ```js
 import { multiply } from 'react-native-th-components';
@@ -20,7 +17,6 @@ import { multiply } from 'react-native-th-components';
 
 const result = await multiply(3, 7);
 ```
-
 
 ## Contributing
 
