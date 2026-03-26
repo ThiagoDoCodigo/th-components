@@ -51,10 +51,9 @@ export default function ActionButton({
 
       setStatus('success');
       setTimeout(() => setStatus('idle'), 2500);
-    } catch (error) {
+    } catch {
       setStatus('error');
       setTimeout(() => setStatus('idle'), 2500);
-      throw error;
     }
   };
 
