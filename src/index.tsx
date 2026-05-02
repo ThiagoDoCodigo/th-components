@@ -14,5 +14,6 @@ export { default as Typography } from './components/Typography';
 // Exportando Tipagens
 export type { ButtonVariant } from './components/CustomButton';
 
-// Exportando o Tema
-export { colors } from './config/theme';
+// Exportando o Tema e Configurações
+export { colors, Theme, configureTheme } from './config/theme';
+export type { ThemeColors, ThemeName } from './config/theme';
