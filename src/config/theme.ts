@@ -2,50 +2,8 @@ import { Appearance } from 'react-native';
 
 // 1. Reestruturação: Família do Tema -> Modo (light / dark)
 export const Themes = {
-  // 🔵 Tema Padrão (Azul)
-  default: {
-    light: {
-      background: '#f8fafc',
-      surface: '#ffffff',
-      surfaceHighlight: '#f1f5f9',
-      border: '#e2e8f0',
-      borderFocus: '#0ea5e9',
-      text: {
-        primary: '#1e293b',
-        secondary: '#475569',
-        muted: '#94a3b8',
-        inverse: '#ffffff',
-      },
-      primary: { main: '#0ea5e9', light: '#e0f2fe', faded: '#f0f9ff' },
-      success: { main: '#10b981', light: '#d1fae5' },
-      danger: { main: '#ef4444', light: '#fee2e2', faded: '#fef2f2' },
-      warning: { main: '#f59e0b', light: '#fef3c7', faded: '#fffbeb' },
-      info: { main: '#0ea5e9', light: '#e0f2fe' },
-      special: { gold: '#eab308', goldLight: '#fef08a' },
-    },
-    dark: {
-      background: '#0f172a',
-      surface: '#1e293b',
-      surfaceHighlight: '#334155',
-      border: '#334155',
-      borderFocus: '#38bdf8',
-      text: {
-        primary: '#f8fafc',
-        secondary: '#cbd5e1',
-        muted: '#64748b',
-        inverse: '#ffffff',
-      },
-      primary: { main: '#38bdf8', light: '#0369a1', faded: '#0c4a6e' },
-      success: { main: '#34d399', light: '#065f46' },
-      danger: { main: '#f87171', light: '#991b1b', faded: '#7f1d1d' },
-      warning: { main: '#fbbf24', light: '#92400e', faded: '#78350f' },
-      info: { main: '#38bdf8', light: '#0369a1' },
-      special: { gold: '#facc15', goldLight: '#854d0e' },
-    },
-  },
-
   // 🌿 Tema Natureza (Verde ajustado para alto contraste em botões e inputs)
-  nature: {
+  default: {
     light: {
       background: '#f4f5f0',
       surface: '#ffffff',
@@ -82,6 +40,47 @@ export const Themes = {
       danger: { main: '#f87171', light: '#7f1d1d', faded: '#450a0a' },
       warning: { main: '#fbbf24', light: '#78350f', faded: '#451a03' },
       info: { main: '#8ba861', light: '#2d3821' },
+      special: { gold: '#facc15', goldLight: '#854d0e' },
+    },
+  },
+  // 🔵 Tema Padrão (Azul)
+  blue: {
+    light: {
+      background: '#f8fafc',
+      surface: '#ffffff',
+      surfaceHighlight: '#f1f5f9',
+      border: '#e2e8f0',
+      borderFocus: '#0ea5e9',
+      text: {
+        primary: '#1e293b',
+        secondary: '#475569',
+        muted: '#94a3b8',
+        inverse: '#ffffff',
+      },
+      primary: { main: '#0ea5e9', light: '#e0f2fe', faded: '#f0f9ff' },
+      success: { main: '#10b981', light: '#d1fae5' },
+      danger: { main: '#ef4444', light: '#fee2e2', faded: '#fef2f2' },
+      warning: { main: '#f59e0b', light: '#fef3c7', faded: '#fffbeb' },
+      info: { main: '#0ea5e9', light: '#e0f2fe' },
+      special: { gold: '#eab308', goldLight: '#fef08a' },
+    },
+    dark: {
+      background: '#0f172a',
+      surface: '#1e293b',
+      surfaceHighlight: '#334155',
+      border: '#334155',
+      borderFocus: '#38bdf8',
+      text: {
+        primary: '#f8fafc',
+        secondary: '#cbd5e1',
+        muted: '#64748b',
+        inverse: '#ffffff',
+      },
+      primary: { main: '#38bdf8', light: '#0369a1', faded: '#0c4a6e' },
+      success: { main: '#34d399', light: '#065f46' },
+      danger: { main: '#f87171', light: '#991b1b', faded: '#7f1d1d' },
+      warning: { main: '#fbbf24', light: '#92400e', faded: '#78350f' },
+      info: { main: '#38bdf8', light: '#0369a1' },
       special: { gold: '#facc15', goldLight: '#854d0e' },
     },
   },
