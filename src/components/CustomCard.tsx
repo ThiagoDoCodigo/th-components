@@ -1,7 +1,7 @@
 import { View, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { colors } from '../config/theme';
 import Typography from './Typography';
-import { type LucideIcon } from 'lucide-react-native';
+import { ChevronRight, type LucideIcon } from 'lucide-react-native';
 
 interface CustomCardProps {
   title: string;
@@ -22,67 +22,88 @@ export default function CustomCard({
   subDescription,
   subIcon: SubIcon,
   onPressBottom,
-  bottomButtonText = 'Ver Detalhes',
+  bottomButtonText = 'Acessar Detalhes',
   onPressRight,
   rightIcon: RightIcon,
 }: CustomCardProps) {
   return (
     <View style={styles.card}>
-      <View style={styles.rowStart}>
-        {image && (
-          <Image
-            source={{ uri: image }}
-            style={[styles.image]}
-            resizeMode="contain"
-          />
+      <View style={styles.contentRow}>
+        {!!image && (
+          <View style={styles.imageWrapper}>
+            <Image
+              source={{ uri: image }}
+              style={styles.image}
+              resizeMode="cover"
+            />
+          </View>
         )}
-        <View style={styles.flex1}>
+
+        <View style={styles.textContainer}>
           <View style={styles.titleRow}>
-            <Typography variant="title" style={styles.title} numberOfLines={1}>
+            <Typography
+              variant="title"
+              color={colors.text.primary}
+              style={styles.title}
+              numberOfLines={1}
+            >
               {title}
             </Typography>
+
             {RightIcon && onPressRight && (
               <TouchableOpacity
                 onPress={onPressRight}
-                style={styles.rightIconButton}
+                activeOpacity={0.6}
+                style={styles.actionIconButton}
+                hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
               >
-                <RightIcon size={16} color={colors.text.muted} />
+                <RightIcon size={18} color={colors.text.muted} />
               </TouchableOpacity>
             )}
           </View>
+
           <Typography
             variant="body"
             color={colors.text.secondary}
             style={styles.description}
             numberOfLines={2}
           >
-            {description || 'Sem descrição'}
+            {description || 'Nenhuma descrição informada.'}
           </Typography>
-          {subDescription && SubIcon && (
-            <View style={styles.subDescriptionRow}>
-              <SubIcon size={14} color={colors.primary.main} />
+
+          {subDescription && (
+            <View style={styles.badgeContainer}>
+              {SubIcon && (
+                <SubIcon
+                  size={12}
+                  color={colors.primary.main}
+                  style={{ marginRight: 4 }}
+                />
+              )}
               <Typography
                 variant="caption"
-                weight="semibold"
+                weight="bold"
                 color={colors.primary.main}
-                style={styles.subDescriptionText}
                 numberOfLines={1}
+                style={{ letterSpacing: 0.2 }}
               >
-                {subDescription}
+                {subDescription.toUpperCase()}
               </Typography>
             </View>
           )}
         </View>
       </View>
+
       {onPressBottom && (
         <TouchableOpacity
           onPress={onPressBottom}
           activeOpacity={0.7}
-          style={styles.bottomButton}
+          style={styles.bottomActionRow}
         >
-          <Typography variant="body" weight="bold" color={colors.text.primary}>
+          <Typography variant="body" weight="bold" color={colors.primary.main}>
             {bottomButtonText}
           </Typography>
+          <ChevronRight size={18} color={colors.primary.main} />
         </TouchableOpacity>
       )}
     </View>
@@ -92,66 +113,80 @@ export default function CustomCard({
 const styles = StyleSheet.create({
   card: {
     backgroundColor: colors.surface,
-    borderRadius: 16,
+    borderRadius: 24,
     borderWidth: 1,
     borderColor: colors.border,
     padding: 16,
     marginBottom: 16,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 2,
-    elevation: 1,
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.06,
+    shadowRadius: 16,
+    elevation: 4,
   },
-  rowStart: {
+  contentRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
   },
-  image: {
-    backgroundColor: colors.surfaceHighlight,
+  imageWrapper: {
+    width: 76,
+    height: 76,
     marginRight: 16,
+    borderRadius: 18,
+    backgroundColor: colors.surfaceHighlight,
     borderWidth: 1,
     borderColor: colors.border,
-    width: 64,
-    height: 64,
-    borderRadius: 32,
+    overflow: 'hidden',
   },
-  flex1: {
+  image: {
+    width: '100%',
+    height: '100%',
+  },
+
+  textContainer: {
     flex: 1,
+    justifyContent: 'center',
+    paddingVertical: 2,
   },
   titleRow: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     justifyContent: 'space-between',
+    marginBottom: 4,
   },
   title: {
-    fontSize: 18,
-    marginBottom: 4,
     flex: 1,
+    fontSize: 18,
     paddingRight: 8,
+    letterSpacing: -0.3,
   },
-  rightIconButton: {
-    padding: 4,
-    backgroundColor: colors.background,
-    borderRadius: 9999,
+  actionIconButton: {
+    padding: 6,
+    backgroundColor: colors.surfaceHighlight,
+    borderRadius: 12,
   },
   description: {
-    marginBottom: 8,
+    marginBottom: 10,
+    lineHeight: 20,
   },
-  subDescriptionRow: {
+
+  badgeContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 6,
-    marginTop: 4,
+    alignSelf: 'flex-start',
+    backgroundColor: colors.primary.faded,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 8,
   },
-  subDescriptionText: {
-    flex: 1,
-  },
-  bottomButton: {
+
+  bottomActionRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     marginTop: 16,
     paddingTop: 16,
     borderTopWidth: 1,
     borderTopColor: colors.surfaceHighlight,
-    alignItems: 'center',
   },
 });
