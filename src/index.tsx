@@ -1,4 +1,3 @@
-// Exportando os Componentes
 export { default as ActionButton } from './components/ActionButton';
 export { default as AlertMessage } from './components/AlertMessage';
 export { default as AlertModal } from './components/AlertModal';
@@ -11,9 +10,7 @@ export { default as InputField } from './components/InputField';
 export { default as TabNavigation } from './components/TabNavigation';
 export { default as Typography } from './components/Typography';
 
-// Exportando Tipagens
 export type { ButtonVariant } from './components/CustomButton';
 
-// Exportando o Tema e Configurações
-export { colors, Themes, configureTheme } from './config/theme';
-export type { ThemeColors, ThemeFamily } from './config/theme';
+export { colors, Themes, configureTheme, onThemeChange } from './config/theme';
+export type { ThemeColors, ThemeFamily, ThemeMode } from './config/theme';
