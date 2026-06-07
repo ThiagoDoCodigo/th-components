@@ -1,8 +1,6 @@
 import { Appearance } from 'react-native';
 
-// 1. Reestruturação: Família do Tema -> Modo (light / dark)
 export const Themes = {
-  // 🌿 Tema Natureza (Verde ajustado para alto contraste em botões e inputs)
   default: {
     light: {
       background: '#f4f5f0',
@@ -43,7 +41,6 @@ export const Themes = {
       special: { gold: '#facc15', goldLight: '#854d0e' },
     },
   },
-  // 🔵 Tema Padrão (Azul)
   blue: {
     light: {
       background: '#f8fafc',
@@ -84,8 +81,6 @@ export const Themes = {
       special: { gold: '#facc15', goldLight: '#854d0e' },
     },
   },
-
-  // 🟣 Tema Violeta Tech
   violet: {
     light: {
       background: '#fcfaff',
@@ -128,52 +123,57 @@ export const Themes = {
   },
 };
 
-// 2. Tipagens
 export type ThemeFamily = keyof typeof Themes;
+export type ThemeMode = 'light' | 'dark' | 'auto';
 export type ThemeColors = typeof Themes.default.light;
 
-// 3. Controle de Estado Interno da Biblioteca
 let activeFamily: ThemeFamily = 'default';
+let activeMode: ThemeMode = 'auto';
 let customColorsOverride: Partial<ThemeColors> = {};
 
-// Função para descobrir qual é o tema do celular agora (Dark/Light)
 const getSystemScheme = () =>
   Appearance.getColorScheme() === 'dark' ? 'dark' : 'light';
 
-// 4. O OBJETO EXPORTADO: Todos os seus componentes olham para cá
 export const colors: ThemeColors = {
-  ...Themes[activeFamily][getSystemScheme()],
+  ...Themes.default.light,
 };
 
-// Função interna que junta a Família escolhida com o Modo do Celular
-function applyColors(scheme: 'light' | 'dark') {
+type ThemeObserver = () => void;
+const observers: ThemeObserver[] = [];
+
+export const onThemeChange = (callback: ThemeObserver) => {
+  observers.push(callback);
+};
+
+function applyColors() {
+  const scheme = activeMode === 'auto' ? getSystemScheme() : activeMode;
   const baseColors = Themes[activeFamily][scheme];
   const finalColors = { ...baseColors, ...customColorsOverride };
 
-  // Atualiza as chaves do objeto exportado mantendo a mesma referência de memória
   Object.assign(colors, finalColors);
+  observers.forEach((notify) => notify());
 }
 
-/**
- * 5. A Função de Configuração Global
- * Chame isso no App.tsx ou index.js do aplicativo principal.
- */
 export function configureTheme(config: {
-  themeName?: ThemeFamily;
+  themeName?: ThemeMode;
+  themeFamily?: ThemeFamily;
   customColors?: Partial<ThemeColors>;
 }) {
-  if (config.themeName && Themes[config.themeName]) {
-    activeFamily = config.themeName;
+  if (config.themeFamily && Themes[config.themeFamily]) {
+    activeFamily = config.themeFamily;
+  }
+  if (config.themeName) {
+    activeMode = config.themeName;
   }
   if (config.customColors) {
     customColorsOverride = config.customColors;
   }
 
-  // Já aplica as cores de acordo com o tema do celular logo na inicialização
-  applyColors(getSystemScheme());
+  applyColors();
 }
 
-// 6. O ESPIÃO: Ouve quando o usuário muda o tema do celular
-Appearance.addChangeListener(({ colorScheme }) => {
-  applyColors(colorScheme === 'dark' ? 'dark' : 'light');
+Appearance.addChangeListener(() => {
+  if (activeMode === 'auto') {
+    applyColors();
+  }
 });
